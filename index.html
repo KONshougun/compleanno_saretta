@@ -76,6 +76,48 @@
         .btn:hover {
             background-color: #ff4e78;
         }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .popup button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #ff6f91;
+            color: white;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 
@@ -98,11 +140,18 @@
         </div>
         <br>
         <div class="sezione">
-            <label>Quando ci siamo incontrati per la prima volta??</label>
-            <input id="input" type="text" placeholder="gg-mm-aaaa">
+            <label>Prima facciamo un test di autenticazione<br>
+                Quando ci siamo incontrati per la prima volta??</label>
+            <input id="input" type="text" placeholder="gg/mm/aaaa">
         </div>
 
         <button class="btn" onclick="checkInput()">Invia</button>
+    </div>
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <p>Mhhh sei sicura??</p>
+            <button onclick="chiudiPopup()">OK</button>
+        </div>
     </div>
 
     <script src="script.js"></script>

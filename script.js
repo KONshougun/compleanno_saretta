@@ -1,19 +1,17 @@
 async function checkInput(){
-    const dataHash = "99cba7a9886cf67f280a328fd3f31d3f2674b0e1337456fa303cd2cd6ba52e59";
+    const data = "99cba7a9886cf67f280a328fd3f31d3f2674b0e1337456fa303cd2cd6ba52e59"
 
     let input = document.getElementById("input").value;
-    let inputHashed =await hashInput(input);
+    let inputHashed = await hashInput(input);
 
-    if(dataHash === inputHashed){
-        console.log("Corretto")
+    if(data == inputHashed){
+        window.location.href = "quiz.html";
     }else{
-        console.log("Sbagliato")
+        mostraPopup();
     }
 }
 
-async function hashInput() {
-    const input = document.querySelector("input[type='text']").value;
-
+async function hashInput(input) {
     const encoder = new TextEncoder();
     const data = encoder.encode(input);
 
@@ -24,6 +22,13 @@ async function hashInput() {
         .map(b => b.toString(16).padStart(2, '0'))
         .join('');
 
-    console.log(hashHex);
     return hashHex;
+}
+
+function mostraPopup() {
+    document.getElementById("popup").classList.remove("hidden");
+}
+
+function chiudiPopup() {
+    document.getElementById("popup").classList.add("hidden");
 }
