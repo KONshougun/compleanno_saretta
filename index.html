@@ -1,20 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Benvenuta sare</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .testo {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .sezione {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        input[type="text"] {
+            width: 95%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background-color: #ff6f91;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff4e78;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="presentazione">
-        <p class="testo">
-            Ciao saretta adesso faremo un piccolo gioco. <br>
-            Fin dai primi giorni la musica ci ha legato molto quindi ho deciso di farti un piccolo quiz a tema musica. <br>
+
+    <div class="container">
+        <h6 class="testo">
+            Ciao saretta adesso faremo un piccolo gioco. <br><br>
+            Fin dai primi giorni la musica ci ha legato molto quindi ho deciso di farti un piccolo quiz a tema musica. <br><br>
             Buona fortuna e vediamo se riuscirai a completarlo!!
-        </p>
-        <button class="btn">Continua</button>
+        </h6>
+
+        <!-- Difficoltà -->
+        <div class="sezione">
+            <label>Scegli la difficoltà:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="difficolta" value="facile" checked> Facile</label>
+                <label><input type="radio" name="difficolta" value="media"> Media</label>
+                <label><input type="radio" name="difficolta" value="difficile"> Difficile</label>
+            </div>
+        </div>
+
+        <!-- Input risposta -->
+        <div class="sezione">
+            <label>Scrivi la tua risposta:</label>
+            <input type="text" placeholder="Inserisci qui...">
+        </div>
+
+        <!-- Bottone -->
+        <button class="btn">Invia</button>
     </div>
-    <script src="script.js"></script>
+
 </body>
 </html>
