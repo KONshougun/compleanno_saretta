@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benvenuta sare</title>
-
+    <title>Benvenuta Saretta</title>
     <style>
         body {
             margin: 0;
@@ -20,8 +19,8 @@
             background: white;
             padding: 20px;
             border-radius: 16px;
-            width: 90%;
-            max-width: 400px;
+            width: 80%;
+            max-width: 375px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             text-align: center;
         }
@@ -84,12 +83,11 @@
 
     <div class="container">
         <h6 class="testo">
-            Ciao saretta adesso faremo un piccolo gioco. <br><br>
+            Ciao Saretta adesso faremo un piccolo gioco. <br><br>
             Fin dai primi giorni la musica ci ha legato molto quindi ho deciso di farti un piccolo quiz a tema musica. <br><br>
             Buona fortuna e vediamo se riuscirai a completarlo!!
         </h6>
 
-        <!-- Difficoltà -->
         <div class="sezione">
             <label>Scegli la difficoltà:</label>
             <div class="radio-group">
@@ -98,16 +96,16 @@
                 <label><input type="radio" name="difficolta" value="difficile"> Difficile</label>
             </div>
         </div>
-
-        <!-- Input risposta -->
+        <br>
         <div class="sezione">
-            <label>Scrivi la tua risposta:</label>
-            <input type="text" placeholder="Inserisci qui...">
+            <label>Quando ci siamo incontrati per la prima volta??</label>
+            <input id="input" type="text" placeholder="gg-mm-aaaa">
         </div>
 
-        <!-- Bottone -->
-        <button class="btn">Invia</button>
+        <button class="btn" onclick="checkInput()">Invia</button>
     </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
