@@ -1,46 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Benvenuta Saretta</title>
-    <link rel="stylesheet" href="https://konshougun.github.io/compleanno_saretta/style.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://konshougun.github.io/compleanno_saretta/style.css"
+    />
+  </head>
 
-<body>
-
+  <body>
     <div class="container">
-        <h6 class="testo">
-            Ciao Saretta adesso faremo un piccolo gioco. <br><br>
-            Fin dai primi giorni la musica ci ha legato molto quindi ho deciso di farti un piccolo quiz a tema musica. <br><br>
-            Buona fortuna e vediamo se riuscirai a completarlo!!
-        </h6>
+      <h6 class="testo">
+        Ciao Saretta adesso faremo un piccolo gioco. <br /><br />
+        Fin dai primi giorni la musica ci ha legato molto quindi ho deciso di
+        farti un piccolo quiz a tema musica. <br /><br />
+        Buona fortuna e vediamo se riuscirai a completarlo!!
+      </h6>
 
-        <div class="sezione">
-            <label>Scegli la difficoltà:</label>
-            <div class="radio-group">
-                <label><input type="radio" name="difficolta" value="facile" checked> Facile</label>
-                <label><input type="radio" name="difficolta" value="media"> Media</label>
-                <label><input type="radio" name="difficolta" value="difficile"> Difficile</label>
-            </div>
+      <div class="sezione">
+        <label>Scegli la difficoltà:</label>
+        <div class="radio-group">
+          <label
+            ><input type="radio" name="difficolta" value=3 />
+            Facile</label
+          >
+          <label
+            ><input type="radio" name="difficolta" value=2 checked />
+            Media</label
+          >
+          <label
+            ><input type="radio" name="difficolta" value=1 />
+            Difficile</label
+          >
         </div>
-        <br>
-        <div class="sezione">
-            <label>Prima facciamo un test di autenticazione<br>
-                Quando ci siamo incontrati per la prima volta??</label>
-            <input id="input" type="text" placeholder="gg/mm/aaaa">
-        </div>
+      </div>
+      <br />
+      <div class="sezione">
+        <label
+          >Prima facciamo un test di autenticazione<br />
+          Quando ci siamo incontrati per la prima volta??</label
+        >
+        <input id="input" type="text" placeholder="gg/mm/aaaa" />
+      </div>
 
-        <button class="btn" onclick="checkInput()">Invia</button>
+      <button class="btn" onclick="checkInput()">Invia</button>
     </div>
     <div id="popup" class="popup hidden">
-        <div class="popup-content">
-            <p>Mhhh sei sicura??</p>
-            <button onclick="chiudiPopup()">OK</button>
-        </div>
+      <div class="popup-content">
+        <p>Mhhh sei sicura??</p>
+        <button onclick="chiudiPopup()">OK</button>
+      </div>
     </div>
 
-    <script src="https://konshougun.github.io/compleanno_saretta/script.js"></script>
+    <script>
+      async function checkInput() {
+        const data =
+          "99cba7a9886cf67f280a328fd3f31d3f2674b0e1337456fa303cd2cd6ba52e59";
 
-</body>
+        let input = document.getElementById("input").value.trim();
+        console.log(input);
+        let inputHashed = await hashInput(input);
+
+        if (data == inputHashed) {
+          const difficolta = document.querySelector(
+            'input[name="difficolta"]:checked',
+          ).value;
+          localStorage.setItem("difficolta", difficolta);
+
+          window.location.href =
+            "https://konshougun.github.io/compleanno_saretta/quiz.html";
+        } else {
+          mostraPopup();
+        }
+      }
+
+      async function hashInput(input) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(input);
+
+        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+        const hashHex = hashArray
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+
+        return hashHex;
+      }
+
+      function mostraPopup() {
+        document.getElementById("popup").classList.remove("hidden");
+      }
+
+      function chiudiPopup() {
+        document.getElementById("popup").classList.add("hidden");
+      }
+    </script>
+  </body>
 </html>

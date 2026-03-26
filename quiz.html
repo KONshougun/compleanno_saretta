@@ -1,11 +1,234 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>quiz</title>
-</head>
-<body>
-    
-</body>
+
+    <style>
+      /* (tutto il tuo CSS invariato) */
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 40px;
+        min-height: 100vh;
+      }
+
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 16px;
+        width: 80%;
+        max-width: 375px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      .contatore {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 15px;
+      }
+
+      .testo {
+        font-size: 16px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        text-align: left;
+      }
+
+      .sezione {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      input[type="text"] {
+        width: 95%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .btn {
+        width: 30%;
+        padding: 12px;
+        border: none;
+        border-radius: 12px;
+        background-color: #ff6f91;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .popup-content {
+        background: white;
+        padding: 20px;
+        border-radius: 16px;
+        width: 80%;
+        max-width: 300px;
+        max-height: 70%;
+        overflow-y: auto;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="contatore" id="contatore"></div>
+
+      <div class="testo">Qual è il tuo strumento musicale preferito?</div>
+
+      <div class="sezione">
+        <input id="inputRisposta" type="text" placeholder="Scrivi qui..." />
+      </div>
+
+      <!-- 3 BOTTONI -->
+      <div style="display: flex; justify-content: space-between">
+        <button class="btn" onclick="inviaRisposta()">Invia</button>
+        <button class="btn" onclick="confermaSuggerimento()">
+          Suggerimento
+        </button>
+        <button class="btn" onclick="mostraMessaggio()">
+          Visualizza messaggio
+        </button>
+      </div>
+    </div>
+
+    <!-- Popup INFO -->
+    <div id="popupInfo" class="popup hidden">
+      <div class="popup-content">
+        <p id="messaggio"></p>
+        <button onclick="chiudiPopup('popupInfo')">OK</button>
+      </div>
+    </div>
+
+    <!-- Popup CONFERMA -->
+    <div id="popupConferma" class="popup hidden">
+      <div class="popup-content">
+        <p>Vuoi davvero usare il suggerimento?</p>
+        <button onclick="mostraSuggerimento()">Sì</button>
+        <button onclick="chiudiPopup('popupConferma')">No</button>
+      </div>
+    </div>
+
+    <!-- Popup SUGGERIMENTO -->
+    <div id="popupSuggerimento" class="popup hidden">
+      <div class="popup-content">
+        <p id="testoSuggerimento"></p>
+        <button onclick="chiudiPopup('popupSuggerimento')">OK</button>
+      </div>
+    </div>
+
+    <script>
+
+      const key ="16/07/2025"
+      const difficolta = parseInt(localStorage.getItem("difficolta"));
+      const domande =[
+        "Qual è stata la prima canzone che ti ho dedicato??",
+        "In erasmus noi due siamo andati nella stanza delle birre a 'cantare' insieme, cosa stavamo cantando??",
+        "Ultimo di recente ha scritto una canzone che ha dedicato sia a me che a lui, come si chiama??",
+        
+        "Qual è il tuo cantante preferito??",
+        "Durante il compleanno di Jasmine con molta felicità ci siamo messi a cantare una canzone, quale??",
+        "In erasmus c'era sempre una canzone che voi ragazze chiedevate, ed è??",
+
+        "Come si chiama la canzone che ti sei tatuata??",
+        "Qual è il cantante che possiamo dire che ci ha legato di più in assoluto??",
+        "Come si chiama la mia canzone preferita??",
+        
+        "Come si chiama la seconda canzone che ti ho dedicato??",
+        "Durante Halloween mentre passeggiavamo ci siamo messi a cantare una canzone, quale??",
+        "Qual è la canzone di ultimo che io e cri mettavamo sempre??",
+        
+        "Qual è il mio cantante preferito??",
+        "Come si chiama la canzone che ho dedicato a Jasmine??",
+        "Semmai dovessi tatuarmi una canzone, come si chiama quella che avrei voluto farmi??",
+        
+        "Qual è la canzone che mi hai dedicato??",
+        "C'è una canzone dei linkin park che se dovessi ascoltare nel momento sbagliato potrei mettermi a piangere, qual è??",
+        "In erasmus ogni serata la facevamo iniziare con una canzone, come si chiamava??"
+      ]
+
+      let messaggio = ''
+      let currentStep = 1;
+      let totalSteps = 18/difficolta;
+      aggiornaContatore()
+
+      function aggiornaContatore() {
+        document.getElementById("contatore").textContent =
+          `${currentStep}/${totalSteps}`;
+      }
+
+      // Popup generico
+      function chiudiPopup(id) {
+        document.getElementById(id).classList.add("hidden");
+      }
+
+      // INFO
+      function mostraMessaggio() {
+        document.getElementById("messaggio").textContent=messaggio
+        document.getElementById("popupInfo").classList.remove("hidden");
+      }
+
+      // Suggerimento - step 1 (conferma)
+      function confermaSuggerimento() {
+        document.getElementById("popupConferma").classList.remove("hidden");
+      }
+
+      // Suggerimento - step 2 (mostra)
+      function mostraSuggerimento() {
+        chiudiPopup("popupConferma");
+
+        if (difficolta != 1){
+          const suggerimento = "Mo ti meno!!";
+          document.getElementById("testoSuggerimento").textContent = suggerimento;
+        }else{
+          const suggerimento = "È uno strumento a corde molto famoso 😉";
+          document.getElementById("testoSuggerimento").textContent = suggerimento;
+        }
+
+        document.getElementById("popupSuggerimento").classList.remove("hidden");
+      }
+
+      // Invio risposta
+      function inviaRisposta() {
+        const risposta = document.getElementById("inputRisposta").value.trim();
+
+        if (risposta === "") {
+          alert("Inserisci una risposta!");
+          return;
+        }
+
+        console.log("Risposta:", risposta);
+
+        currentStep++;
+        // if (currentStep > totalSteps) currentStep = totalSteps;
+
+        aggiornaContatore();
+        document.getElementById("inputRisposta").value = "";
+      }
+    </script>
+  </body>
 </html>
