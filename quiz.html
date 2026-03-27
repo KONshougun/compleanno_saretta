@@ -98,7 +98,7 @@
     <div class="container">
       <div class="contatore" id="contatore"></div>
 
-      <div class="testo">Qual è il tuo strumento musicale preferito?</div>
+      <div id="question" class="testo"></div>
 
       <!-- Input + invia affiancati -->
       <div class="sezione" style="display: flex; gap: 10px">
@@ -145,12 +145,16 @@
     </div>
 
     <script>
-      const difficolta = parseInt(localStorage.getItem("difficolta"));
+      //const difficolta = parseInt(localStorage.getItem("difficolta"));
+      const difficolta = 2;
       /*if(!difficolta){
           window.location.href =
             "https://konshougun.github.io/compleanno_saretta/index.html";
       }*/
-      const key = "16/07/2025";
+      const password = "16/07/2025";
+      const enc = new TextEncoder();
+      const dec = new TextDecoder();
+
       const domande = [
         "Qual è stata la prima canzone che ti ho dedicato??",
         "In erasmus noi due siamo andati nella stanza delle birre a 'cantare' insieme, cosa stavamo cantando??",
@@ -176,13 +180,72 @@
         "C'è una canzone dei linkin park che se dovessi ascoltare nel momento sbagliato potrei mettermi a piangere, qual è??",
         "In erasmus ogni serata la facevamo iniziare con una canzone, come si chiamava??",
       ];
+      
+      const answers = [
+        {encrypted: 'UZ9JTEVfWYVNgUf2jXGxT0tpU8oi', counter: 'KdzzHlHcd2uJRPWXbgg5oA=='},
+        {encrypted: 'xHpJbziClw==', counter: 'LCC8WYX0cxgZsqOr/C4wnA=='},
+        {encrypted: 'EGJnNXYI5mw=', counter: 'UQMm71aOvH4Pr6xlmGwWWA=='},
+        {encrypted: '+sHpsQ==', counter: 'WkKLbewNyykjBXvRR+z8wg=='},
+        {encrypted: 'ckn8dGbSdqy9YnKpYAFiAeeDYEBnE3g=', counter: 'lG3b6f0IbO0NyOBY+E89uw=='},
+        {encrypted: 'wlkn/OvGNw==', counter: 'zKvmw40oAbP9bn6qbx88DQ=='},
+        {encrypted: 'g0/iTyZi7a23tq92kw==', counter: 'GHZDK6S2ulAQv8/I0v+V2g=='},
+        {encrypted: 'dBpwQ1V1', counter: '+EZEQp2wBh06kIWAKK3XSA=='},
+        {encrypted: 'm4zRB70Etbk=', counter: 'KP/x12YRrKFbWsrneUsJyw=='},
+        {encrypted: 'vhDzEGf3rWAjuY/Frm/T2g==', counter: '2AEO1FodMjCWYEElqXCuHg=='},
+        {encrypted: 'lNyLJ62aIqVfXww=', counter: 'BKY0IPCn3tnmVizYk6FJ0w=='},
+        {encrypted: '9WmWslplTzmRFw==', counter: 'YxaYEhwt/VKGEK+G8c5pLg=='},
+        {encrypted: 'rBLwvg==', counter: 'NpMAz5BA7QM7GET5bD5pUw=='},
+        {encrypted: 'AHCcdMgRSfN+Athd0CIKENAzwiL2LLtyfE4QhptBDoopZl6J', counter: 'kwJoPM30B4K3W0SxyvrNHg=='},
+        {encrypted: 'ganobjKNVpSNoSkBF5PI', counter: 'ZEqFTlgLrC4hY6+zDWijSA=='},
+        {encrypted: 'ZLEtYeYMkQ==', counter: 'TgnlA8cJwLjRYyp9K4CRww=='},
+        {encrypted: 'y4Q9vhQNXh1SmpILjmA=', counter: '/ch9L854l03aNNGbTaWjZQ=='},
+        {encrypted: 'm1oKds3v', counter: 'YgYdYycAuYj2tOyymCcyAw=='}
+      ];
 
+      let key;
       let messaggio = "";
       let currentStep = 1;
+      let domandaIndex = 0;
       let totalSteps = 6 * difficolta;
-      aggiornaContatore();
+      setCounter();
+      setQuestion();
+      init();
 
-      function aggiornaContatore() {
+      async function init() {
+        key = await getKey();
+      }
+      async function getKey(){
+        const keyMaterial = await crypto.subtle.importKey(
+            "raw",
+            enc.encode(password),
+            { name: "PBKDF2" },
+            false,
+            ["deriveKey"]
+        );
+
+        return await crypto.subtle.deriveKey(
+            {
+                name: "PBKDF2",
+                salt: enc.encode("compleanno_saretta"),
+                iterations: 100000,
+                hash: "SHA-256",
+            },
+            keyMaterial,
+            { name: "AES-CTR", length: 256 },
+            true,
+            ["decrypt"]
+        );
+      }
+
+      function setQuestion(){
+        let index = currentStep - 1;
+        let block = Math.floor(index / difficolta);
+        let offset = index % difficolta;
+        domandaIndex = block * 3 + offset;
+        document.getElementById("question").textContent = domande[domandaIndex];
+      }
+
+      function setCounter() {
         document.getElementById("contatore").textContent =
           `${currentStep}/${totalSteps}`;
       }
@@ -203,7 +266,7 @@
       function mostraSuggerimento() {
         chiudiPopup("popupConferma");
 
-        if (difficolta != 1 && currentStep % 3 != 0) {
+        if (difficolta != 3 || currentStep % 3 != 0) {
           const suggerimento = "Mo ti meno!!";
           document.getElementById("testoSuggerimento").textContent =
             suggerimento;
@@ -217,8 +280,8 @@
       }
 
       // Invio risposta
-      function inviaRisposta() {
-        const risposta = document.getElementById("inputRisposta").value.trim();
+      async function inviaRisposta() {
+        const risposta = document.getElementById("inputRisposta").value.trim().toLowerCase();
 
         if (risposta === "") {
           alert("Inserisci una risposta!");
@@ -226,12 +289,40 @@
         }
 
         console.log("Risposta:", risposta);
+        const rispostaCorretta = await decryptAnswer(
+          answers[currentStep].encrypted,
+          answers[currentStep].counter
+        );
 
-        currentStep++;
-        // if (currentStep > totalSteps) currentStep = totalSteps;
+        if (risposta === rispostaCorretta.toLowerCase()){
+          currentStep++;
+          if (currentStep >= totalSteps){
+            showMessage();
+          }
 
-        aggiornaContatore();
-        document.getElementById("inputRisposta").value = "";
+          setCounter();
+          setQuestion();
+          document.getElementById("inputRisposta").value = "";
+        }else{
+          console.log("Sbagliato ❌");
+        }
+      }
+
+      async function decryptAnswer(encryptedBase64, counterBase64) {
+        const encryptedBytes = Uint8Array.from(atob(encryptedBase64), c => c.charCodeAt(0));
+        const counter = Uint8Array.from(atob(counterBase64), c => c.charCodeAt(0));
+
+        const decrypted = await crypto.subtle.decrypt(
+            {
+                name: "AES-CTR",
+                counter: counter,
+                length: 64,
+            },
+            key,
+            encryptedBytes
+        );
+
+        return dec.decode(decrypted);
       }
     </script>
   </body>
