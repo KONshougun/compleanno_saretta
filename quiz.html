@@ -47,7 +47,7 @@
       }
 
       input[type="text"] {
-        width: 95%;
+        width: 100%;
         padding: 10px;
         border-radius: 10px;
         border: 1px solid #ccc;
@@ -56,7 +56,7 @@
       }
 
       .btn {
-        width: 30%;
+        width: 40%;
         padding: 12px;
         border: none;
         border-radius: 12px;
@@ -100,21 +100,24 @@
 
       <div class="testo">Qual è il tuo strumento musicale preferito?</div>
 
-      <div class="sezione">
-        <input id="inputRisposta" type="text" placeholder="Scrivi qui..." />
-      </div>
-
-      <!-- 3 BOTTONI -->
-      <div style="display: flex; justify-content: space-between">
-        <button class="btn" onclick="inviaRisposta()">Invia</button>
-        <button class="btn" onclick="confermaSuggerimento()">
-          Suggerimento
-        </button>
-        <button class="btn" onclick="mostraMessaggio()">
-          Visualizza messaggio
+      <!-- Input + invia affiancati -->
+      <div class="sezione" style="display: flex; gap: 10px">
+        <input
+          id="inputRisposta"
+          type="text"
+          placeholder="Scrivi qui..."
+          style="flex: 1; margin-bottom: 0;"
+        />
+        <button class="btn" style="width: auto" onclick="inviaRisposta()">
+          Invia
         </button>
       </div>
-    </div>
+      <br>
+      <!-- Bottoni sotto -->
+      <div style="display: flex; justify-content: space-between; gap: 10px">
+        <button style="margin-left: 15%;" class="btn" onclick="mostraInfo()">Visualizza messaggio</button>
+        <button style="margin-right: 15%;" class="btn" onclick="confermaSuggerimento()">Suggerimento</button>
+      </div>
 
     <!-- Popup INFO -->
     <div id="popupInfo" class="popup hidden">
@@ -142,14 +145,17 @@
     </div>
 
     <script>
-
-      const key ="16/07/2025"
       const difficolta = parseInt(localStorage.getItem("difficolta"));
-      const domande =[
+      /*if(!difficolta){
+          window.location.href =
+            "https://konshougun.github.io/compleanno_saretta/index.html";
+      }*/
+      const key = "16/07/2025";
+      const domande = [
         "Qual è stata la prima canzone che ti ho dedicato??",
         "In erasmus noi due siamo andati nella stanza delle birre a 'cantare' insieme, cosa stavamo cantando??",
         "Ultimo di recente ha scritto una canzone che ha dedicato sia a me che a lui, come si chiama??",
-        
+
         "Qual è il tuo cantante preferito??",
         "Durante il compleanno di Jasmine con molta felicità ci siamo messi a cantare una canzone, quale??",
         "In erasmus c'era sempre una canzone che voi ragazze chiedevate, ed è??",
@@ -157,56 +163,54 @@
         "Come si chiama la canzone che ti sei tatuata??",
         "Qual è il cantante che possiamo dire che ci ha legato di più in assoluto??",
         "Come si chiama la mia canzone preferita??",
-        
+
         "Come si chiama la seconda canzone che ti ho dedicato??",
         "Durante Halloween mentre passeggiavamo ci siamo messi a cantare una canzone, quale??",
         "Qual è la canzone di ultimo che io e cri mettavamo sempre??",
-        
+
         "Qual è il mio cantante preferito??",
         "Come si chiama la canzone che ho dedicato a Jasmine??",
         "Semmai dovessi tatuarmi una canzone, come si chiama quella che avrei voluto farmi??",
-        
+
         "Qual è la canzone che mi hai dedicato??",
         "C'è una canzone dei linkin park che se dovessi ascoltare nel momento sbagliato potrei mettermi a piangere, qual è??",
-        "In erasmus ogni serata la facevamo iniziare con una canzone, come si chiamava??"
-      ]
+        "In erasmus ogni serata la facevamo iniziare con una canzone, come si chiamava??",
+      ];
 
-      let messaggio = ''
+      let messaggio = "";
       let currentStep = 1;
-      let totalSteps = 6*difficolta;
-      aggiornaContatore()
+      let totalSteps = 6 * difficolta;
+      aggiornaContatore();
 
       function aggiornaContatore() {
         document.getElementById("contatore").textContent =
           `${currentStep}/${totalSteps}`;
       }
 
-      // Popup generico
       function chiudiPopup(id) {
         document.getElementById(id).classList.add("hidden");
       }
 
-      // INFO
       function mostraMessaggio() {
-        document.getElementById("messaggio").textContent=messaggio
+        document.getElementById("messaggio").textContent = messaggio;
         document.getElementById("popupInfo").classList.remove("hidden");
       }
 
-      // Suggerimento - step 1 (conferma)
       function confermaSuggerimento() {
         document.getElementById("popupConferma").classList.remove("hidden");
       }
 
-      // Suggerimento - step 2 (mostra)
       function mostraSuggerimento() {
         chiudiPopup("popupConferma");
 
-        if (difficolta != 1){
+        if (difficolta != 1 && currentStep % 3 != 0) {
           const suggerimento = "Mo ti meno!!";
-          document.getElementById("testoSuggerimento").textContent = suggerimento;
-        }else{
+          document.getElementById("testoSuggerimento").textContent =
+            suggerimento;
+        } else {
           const suggerimento = "È uno strumento a corde molto famoso 😉";
-          document.getElementById("testoSuggerimento").textContent = suggerimento;
+          document.getElementById("testoSuggerimento").textContent =
+            suggerimento;
         }
 
         document.getElementById("popupSuggerimento").classList.remove("hidden");
