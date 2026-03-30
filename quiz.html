@@ -142,12 +142,11 @@
     </div>
 
     <script>
-      //const difficolta = parseInt(localStorage.getItem("difficolta"));
-      const difficolta = 1;
-      /*if(!difficolta){
+      const difficolta = parseInt(localStorage.getItem("difficolta"));
+      if(!difficolta){
           window.location.href =
             "https://konshougun.github.io/compleanno_saretta/index.html";
-      }*/
+      }
       const password = "16/07/2025";
       const enc = new TextEncoder();
       const dec = new TextDecoder();
@@ -207,8 +206,8 @@
       ];
 
       let key;
-      const messaggioEncoded = "pTjpMVpuaxaMl/HeT8Fr0P4J6jT+Ys3VRIshA0KvBBS5XLrL/cJRm9ShpV9oYH9Nq2ohGCTegyMbkdwkqZ4lNnrLW9mnTKz7RMtZz/NUKuFvj+lUoy7YpKDWQ3GxfuRFxaPrpyOd49g1g4zmPk0uYeGw4uQCtSL7QXwpOS/8DbjN5FEXGQFiVSleE8ZiKYHF+m3GX0ChC7HfIYTGaFcGNcdGsQq4Aa1wGoKuHbXBwBmJUgXRl2NhErBUrfWDNvl0pdwR4C/0igNjtusaib/bujdjeQ6FJjredtiYZBjOfz0/JiK0tmeWYTeR8hImccuswoYz9un2ZeaKzTSnlHO3Q96wPSBQip2JHjOad8KsKkr9ZqLNYurPGSuRkYlifYUTBndIhNuzj/Yey34+Y8v6lsve571ZMrEg9vrEE7IiyljB1Y08lmmsJ3lS/P3OujHXPkDhRCaHx+oSQ70+DGBGL2IdW1O/KuLkuuJXfrhLh/Gy+bpEpHJ7IC7ueHx5aCF3rco5nNMYC0RUPLuHHbqJI1l45ZB6RGyOEg9qwe0Vsxbn4geoflaL13AJs+QY3WCzwiYfBQmxXTdgZgbtbUD3Qody7xXlvOjVVCjVQITV+hjCPLxwfECJb65W8O8bAj6RpcfkAA2DzZyyuPK/V5raBgRmdoWDEKNGGX1i0pG/Sqq30EdwYjsLMa6D+4bZQN/v2JufhkzqYHQCkxrO7LIwFXsTMi2NFssRRmdGGJqWK5CocR42b07PoKf/k+l4p1hGtCTX3iVQkaatfIICYWsLqyakT4bl5YrwXKkLvq05H/kE7WxRjRszWLiIMXzsWS2vnKXEFXc2mQFPI1Eswnq/5kSgO5rSrQrDYtB2NcmJBOIXnx/R4NF+ayYzklDkWnobohPesOybLzRrD9v1IMTbbfAOI7kmEV3ks6kBvAmAmBLsqBOX9Weg8cHaFJPoYfiYlhhl4P8BRaSDTli3nKnMl6fI9RelMFZTyK/Xk5Lby+95fRYHB49Ka1QT33+UaIelOyQ8KvhUTTHqDNCjAEpml6ymucUKEqqw0oBzLvbHx5bHGKHPgEaKV+BoH8Zw1SvVrqt7zdAStrceUGg3jSQilobPl8jVqLIQRfqaowD/8+HYsXG3tuDI0NNhdPoYIhbRSGDPwTezrVTH7Zpo65oZ9PZbSdcyE9707d2M05aAVer3nblmEJ4tF8gonO5ffUrOjy1XSaES1Tar6Tb9xiiMvpTEMLZdzeaIfLzWx2EXuX+Ngis=";
-      const counter = "uJugYLmLwy+iX08O/5D/aA=="
+      const messaggioEncoded = "DNPgwlt6M6gtzTSwgTN9j5TBIE/nikpftkoCfKvnAV2tq0pH2d60JpSh8lF+UKCeS8Hfdq44eJROqNC0a9vIK3Fph2HTnKMVz3wIdkRU7l/+mWZ9d7XSuYW6RGMcp8I5PQzpsbpM1ykZXOuLqffuXTYr3zpzpAxS2gaIokpAhL+NvGgiSWFbVLCz7w1mfgnaERaBk4QQt7phK4/K6aLu+qWU3NK9+14pYNX/cJeeqD0qS1cQScDH3qjGxY+l1n0vJFimtS86QqmrVOTXK9RO46XXgCXrPsj5d3kFR2ITEuI3Z8D54XL8+TEbG9AlnUgL+rDqsVeokzwm2u3wCz2piQ72xkjE8smyUhbBhEMgpIe9pWoRhHgzBtLcuymrhGZLf/5EV9/QTWSRxYUjmhflxz22XfIm0REM2s03dGXHWJDukgstQPaLH3QVqtxfadyQXL8XQswpf5POKAAEE4mDNalow3fXs4sSXT3g2EIXw+uMLm8DnEriOAZhLG2UymVGOjGIi9HKjG6T4zIBisVy2UIzzR9cRwA+Xm4rekI4pzUB0WnxUAzir/BrMi1j9GsrtJgyRjqMlfDYFjaj1I3oAdVsRezyt+LeMO5reThoVhv+rP9+jc5XHVK43qslGPTHaedguupA4+/YV/okEzfbzz0N16rY/XCpnRbB1O+nf344O7wjBjm51nVx9xusrT46Ay0L8XjD5N2kkHCbem5vYGK36Ypm7EIUJPo6E41+cz9BQy2rK0OZ7w6RaV/ClZ56kXNaaO7s3Og5Y9w71O3nqx59jkBP4ec4ysS6Vbs3IrdTEffWgvdo3Nz46Ijubpjtcz1bqEol6l1Z+jzlIae1x7NyK36IjdYm+CWmyCL6pQUGTknK4wbqr7IcNIl82k02C4w0Im4nSnNnaCMOGu0wMBxrFKdekBIojZp+DU3eMVWMKC30V5DG8iM/eOGFBSfJZrZK+MVDXGFUHSFOy17+h0HFZ62ckMra3dpLsVOCYDYSYgpOPoucFrFD5K0UmqjCsawkOYLDPUHDOc8h6s/aLPgIbXtnD3aV0KLg5UHSQCWKa0+FSdqh0w1835+NXkzLoJ9H472JiRyqv+NaIljnbgavBRukK/uXHTVG/MqYsnjlRx8xi79G0ufxZDfDIJNk/RIwtY/f3oCbrIn/M8HcP3ejd+1ghuXGGO6Difx7m0oXnEQ5jr3Hiv+X/91AtOjoX5y1WuowWQggL1DBceTERkibUo6IuIIpRVCcl2KDb/QpxJjNRXp4DQ==";
+      const counter = "tz9sKLnTlesl4Z1FvzjCOg=="
 
       let currentStep = 1;
       let domandaIndex = 0;
