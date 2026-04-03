@@ -142,11 +142,12 @@
     </div>
 
     <script>
-      const difficolta = parseInt(localStorage.getItem("difficolta"));
+      /*const difficolta = parseInt(localStorage.getItem("difficolta"));
       if(!difficolta){
           window.location.href =
             "https://konshougun.github.io/compleanno_saretta/index.html";
-      }
+      }*/
+     const difficolta = 3
       const password = "16/07/2025";
       const enc = new TextEncoder();
       const dec = new TextDecoder();
@@ -206,8 +207,8 @@
       ];
 
       let key;
-      const messaggioEncoded = "DNPgwlt6M6gtzTSwgTN9j5TBIE/nikpftkoCfKvnAV2tq0pH2d60JpSh8lF+UKCeS8Hfdq44eJROqNC0a9vIK3Fph2HTnKMVz3wIdkRU7l/+mWZ9d7XSuYW6RGMcp8I5PQzpsbpM1ykZXOuLqffuXTYr3zpzpAxS2gaIokpAhL+NvGgiSWFbVLCz7w1mfgnaERaBk4QQt7phK4/K6aLu+qWU3NK9+14pYNX/cJeeqD0qS1cQScDH3qjGxY+l1n0vJFimtS86QqmrVOTXK9RO46XXgCXrPsj5d3kFR2ITEuI3Z8D54XL8+TEbG9AlnUgL+rDqsVeokzwm2u3wCz2piQ72xkjE8smyUhbBhEMgpIe9pWoRhHgzBtLcuymrhGZLf/5EV9/QTWSRxYUjmhflxz22XfIm0REM2s03dGXHWJDukgstQPaLH3QVqtxfadyQXL8XQswpf5POKAAEE4mDNalow3fXs4sSXT3g2EIXw+uMLm8DnEriOAZhLG2UymVGOjGIi9HKjG6T4zIBisVy2UIzzR9cRwA+Xm4rekI4pzUB0WnxUAzir/BrMi1j9GsrtJgyRjqMlfDYFjaj1I3oAdVsRezyt+LeMO5reThoVhv+rP9+jc5XHVK43qslGPTHaedguupA4+/YV/okEzfbzz0N16rY/XCpnRbB1O+nf344O7wjBjm51nVx9xusrT46Ay0L8XjD5N2kkHCbem5vYGK36Ypm7EIUJPo6E41+cz9BQy2rK0OZ7w6RaV/ClZ56kXNaaO7s3Og5Y9w71O3nqx59jkBP4ec4ysS6Vbs3IrdTEffWgvdo3Nz46Ijubpjtcz1bqEol6l1Z+jzlIae1x7NyK36IjdYm+CWmyCL6pQUGTknK4wbqr7IcNIl82k02C4w0Im4nSnNnaCMOGu0wMBxrFKdekBIojZp+DU3eMVWMKC30V5DG8iM/eOGFBSfJZrZK+MVDXGFUHSFOy17+h0HFZ62ckMra3dpLsVOCYDYSYgpOPoucFrFD5K0UmqjCsawkOYLDPUHDOc8h6s/aLPgIbXtnD3aV0KLg5UHSQCWKa0+FSdqh0w1835+NXkzLoJ9H472JiRyqv+NaIljnbgavBRukK/uXHTVG/MqYsnjlRx8xi79G0ufxZDfDIJNk/RIwtY/f3oCbrIn/M8HcP3ejd+1ghuXGGO6Difx7m0oXnEQ5jr3Hiv+X/91AtOjoX5y1WuowWQggL1DBceTERkibUo6IuIIpRVCcl2KDb/QpxJjNRXp4DQ==";
-      const counter = "tz9sKLnTlesl4Z1FvzjCOg=="
+      const messaggioEncoded = "45yWGBrvbhx9fKd785CXGqIAPF9BYsCyddGBohgBIAP69bLV1m8C1io4SVourauk/Z/C47HTF9xS90Zj+XI+OTvSHpasgSsTk7lU6gDR9KnnXRepcLxmf1k8iXoW/5/1xmfF35N324l4e106w+UuBPVIU1d+LBvZVzneZKv+pbg4K4/Ixzga80JjSVTOVEtxtMw2vYMAfcg7qbOIFDOrq6+lnTdXB8uLB9mG+PvZIRgM2UURl1gDxxTSknzpWABPH2PTUwg6Vm+DyHf0ZPujXrgEcgRpjB/uqkRD1xc2KsvvVCIEWB8wpLrqjeUREpzbHK1YDLVSug9MVWTXIIx2YJg65eMpPUTadYU/Xd4nYzbYVoK5HZDHvGbaXb9Jky0xQsv8rsy6cFqY35jfya5Liu6/D9/acoZlU+TXtW/ZUuoIKAWSxsj7jMifzVAWa4QulrIqeH8ZgJZnJ6CbEFwN0+7yHkhW8+vAtYkECHdo6GAtdEyNmRkfRFx+o+0pXPbw59FKS95n85K7fzv6ZbH8uap5igT4Gd5q0wRAZ2EQEmYWbG/gqxIgsospyiMnPVAoyIOGZfKycYPGgCCXUvPdhSGyXgOvtD6TeAq7fvDzMHloeWfBCXDHtEBsFBnqZSaDpEtwbqz4/oJi5vl4zes7bed3XtqKTm5f1XweiqsB2fnaHj5XG0uS82L6T3AUYCflmbwbPaT4yW9ny0cCThUGZqgH2rjw6E5oO4vXG+UWkXWr7Bd0HtTQHusGgkp1byW5Murs3y7IDPfPHTz3M2kaBzdYr5E5bA87zphcW1dGpK+amvQNbIjvvg3pl+2/5ACoJcZStq/P9YsxamO2m3KOQ4VzWFIYXgxDm6lL9HiWq1v8mw/iLYGwbQpwGorRm8Jk3T380xkj4e4LgfDGNZUgXQWMCcYbZuihG5V0S4FUtvzKDfpDmTGWEj+9fRyakr0EAXiIwtv6JXMSfmTkAN+U8uvSkQktOVX0tU4MaVx2ufPOoJll8MLrzvpEKAAyX/EWlCZXSCzgbXny2tAKyqFWsvIV2dc4/QlKSpjWxMTJZXlQdvZ6RafvWehcG+UcxfS4bXyaDP3vpd8iH6uZ6poY5MAxaRE+Af0pJIX9h4wlVSe4hJ8G+VLCWnelt4x5TlOxUSzy7WCx+BKAJGwN6D2U8elchkMmudM4jRbdxEnCZccZjC+VpM0GEXE9+V2GBtuX+XuTwdoPcqwQyRgpS6HfPPmVf2vFsZbmMaah"
+      const counter = "IfgB5QYmZVcpXLJqoFLq6w=="
 
       let currentStep = 1;
       let domandaIndex = 0;
