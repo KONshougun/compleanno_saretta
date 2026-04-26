@@ -100,7 +100,6 @@
 
       <div id="question" class="testo"></div>
 
-      <!-- Input + invia affiancati -->
       <div id="input" class="sezione" style="display: flex; gap: 10px">
         <input
           id="inputRisposta"
@@ -300,13 +299,13 @@
           return;
         }
 
-        console.log("Risposta:", risposta);
         const rispostaCorretta = await decryptAnswer(
           answers[domandaIndex].encrypted,
           answers[domandaIndex].counter
         );
 
         if (risposta === rispostaCorretta){
+          document.getElementById(inputRisposta).textContent = ''
           currentStep++;
           if (currentStep > totalSteps){
             document.getElementById("input").classList.add("hidden")
