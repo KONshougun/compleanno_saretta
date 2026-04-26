@@ -258,7 +258,7 @@
       async function chiudiPopup(id) {
         if(id !== "popupInfo" || currentStep <= totalSteps){
           document.getElementById(id).classList.add("hidden");
-        }else if(document.getElementById("messaggio").textContent === "Brava hai vinto!!! "){
+        }else if(document.getElementById("messaggio").textContent === "Brava hai vinto!!!"){
           document.getElementById(id).classList.add("hidden");
           mostraMessaggio(await decryptAnswer(messaggioEncoded, counter));
         }else{
