@@ -143,6 +143,7 @@
 
     <script>
       const difficolta = parseInt(localStorage.getItem("difficolta"));
+      console.log(difficolta)
       if(!difficolta){
           window.location.href =
             "https://konshougun.github.io/compleanno_saretta/index.html";
@@ -258,7 +259,7 @@
       async function chiudiPopup(id) {
         if(id !== "popupInfo" || currentStep <= totalSteps){
           document.getElementById(id).classList.add("hidden");
-        }else if(document.getElementById("messaggio").textContent === "Brava Saretta hai concluso il quiz!!!"){
+        }else if(document.getElementById("messaggio").textContent === "Brava hai vinto!!! "){
           document.getElementById(id).classList.add("hidden");
           mostraMessaggio(await decryptAnswer(messaggioEncoded, counter));
         }else{
@@ -314,7 +315,6 @@
 
           setCounter();
           setQuestion();
-          document.getElementById("inputRisposta").value = "";
         }else{
           mostraMessaggio("Risposta errata!!")
         }
