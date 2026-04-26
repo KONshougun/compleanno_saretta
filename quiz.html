@@ -305,7 +305,7 @@
         );
 
         if (risposta === rispostaCorretta){
-          document.getElementById(inputRisposta).textContent = ''
+          document.getElementById(inputRisposta).value = ''
           currentStep++;
           if (currentStep > totalSteps){
             document.getElementById("input").classList.add("hidden")
